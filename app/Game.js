@@ -5,6 +5,8 @@ import { Player } from './Player.js';
 class Game {
     constructor({playersCards, dealersCards, player}) {
         this.player = player;
+        this.dealer = new Player('Krupier');
+
         this.playersCards = playersCards;
         this.dealersCards = dealersCards;
         this.deck = new Deck();
@@ -20,6 +22,10 @@ class Game {
             let card1 = this.deck.pickOne();
             this.player.hand.addCard(card1);
             this.playersCards.appendChild(card1.render());
+
+            let card2 = this.deck.pickOne();
+            this.dealer.hand.addCard(card2);
+            this.dealersCards.appendChild(card2.render());
         }
     }
 }
