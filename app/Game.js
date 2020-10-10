@@ -1,5 +1,8 @@
 
 import { Deck } from './Deck.js';
+import { Player } from './Player.js';
 
 const deck = new Deck();
-console.log(deck);
+const player = new Player("Dariusz");
+
+console.log(player);
