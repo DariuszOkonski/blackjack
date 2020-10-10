@@ -8,8 +8,6 @@ export class Deck {
         Types.forEach(type => Weights.forEach(weight => {
             this.cards.push(new Card(weight, type));
         }))
-
-        this.shuffle();
     }
 
     shuffle() {
@@ -19,5 +17,9 @@ export class Deck {
             this.cards[i] = this.cards[j];
             this.cards[j] = temp;    
         }
+    }
+
+    pickOne() {
+        return this.cards.pop();
     }
 }
