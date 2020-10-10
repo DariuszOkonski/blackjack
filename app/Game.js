@@ -1,6 +1,5 @@
-import { Card } from './Card.js';
 
-const card = new Card("A", "hearts");
-document.getElementById('playersCards').appendChild(card.render());
+import { Deck } from './Deck.js';
 
-console.log(card.render());
+const deck = new Deck();
+console.log(deck);
