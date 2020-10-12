@@ -26,12 +26,38 @@ class Game {
     }
 
     dealerPlays() {
-        console.log('dealerPlays');
         while(this.dealer.points <= this.player.points && this.dealer.points <= 21 && this.player.points <= 21) {
             const card = this.deck.pickOne();
             this.dealer.hand.addCard(card);
             this.table.showDealersCard(card);
             this.dealerPoints.innerHTML = this.dealer.calculatePoints();
+        }
+
+        this.endGame();
+    }
+
+    endGame() {
+        this.hitButton.removeEventListener('click', (event) => this.hitCard());
+        this.standButton.removeEventListener('click', (event) => this.dealerPlays());
+
+        if(this.player.points < 21 && this.player.points == this.dealer.points) {
+            console.log('remis');
+            return;
+        }
+
+        if(this.player.points > 21) {
+            console.log('wygrywa dealer');
+            return;
+        }
+
+        if(this.dealer.points > 21) {
+            console.log('wygrywa player');
+            return;
+        }
+
+        if(this.player.points < this.dealer.points) {
+            console.log('wygrywa dealer');
+            return;
         }
     }
 
