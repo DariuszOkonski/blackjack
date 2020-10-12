@@ -2,13 +2,15 @@
 import { Deck } from './Deck.js';
 import { Player } from './Player.js';
 import { Table } from './Table.js';
+import { Message } from './Message.js';
 
 class Game {
-    constructor({player, playerPoints, dealerPoints, table, hitButton, standButton}) {
+    constructor({player, playerPoints, dealerPoints, table, hitButton, standButton, messageBox}) {
         this.hitButton = hitButton;
         this.standButton = standButton;
         this.playerPoints = playerPoints;
         this.dealerPoints = dealerPoints;
+        this.messageBox = messageBox;
         
         this.player = player;
         this.dealer = new Player('Krupier');
@@ -40,23 +42,26 @@ class Game {
         this.hitButton.removeEventListener('click', (event) => this.hitCard());
         this.standButton.removeEventListener('click', (event) => this.dealerPlays());
 
+        this.hitButton.style.display = 'none';
+        this.standButton.style.display = 'none';
+
         if(this.player.points < 21 && this.player.points == this.dealer.points) {
-            console.log('remis');
+            this.messageBox.setText('Remis').show();            
             return;
         }
 
         if(this.player.points > 21) {
-            console.log('wygrywa dealer');
+            this.messageBox.setText('Wygrywa dealer').show();
             return;
         }
 
         if(this.dealer.points > 21) {
-            console.log('wygrywa player');
+            this.messageBox.setText('Wygrywa player').show();
             return;
         }
 
         if(this.player.points < this.dealer.points) {
-            console.log('wygrywa dealer');
+            this.messageBox.setText('Wygrywa dealer').show();
             return;
         }
     }
@@ -87,6 +92,7 @@ class Game {
 // ==============================
 const table = new Table(document.getElementById('dealersCards'), document.getElementById('playersCards'));
 const player = new Player('Dariusz');
+const messageBox = new Message(document.getElementById('message'));
 
 const game = new Game({
     hitButton: document.getElementById('hit'),
@@ -94,7 +100,8 @@ const game = new Game({
     dealerPoints: document.getElementById('dealerPoints'),
     playerPoints: document.getElementById('playerPoints'),
     player,
-    table
+    table,
+    messageBox
 });
 
 game.run();
